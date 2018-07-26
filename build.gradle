@@ -1,13 +1,26 @@
 buildscript {
 	repositories {
+		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 		maven { url "https://repo.spring.io/plugins-release" }
+		jcenter()
 	}
 	dependencies {
 		classpath("org.springframework.build.gradle:propdeps-plugin:0.0.7")
 		classpath("io.spring.gradle:docbook-reference-plugin:0.3.1")
+		classpath 'com.android.tools.build:gradle:2.2.3'
+
 	}
 }
 
+allprojects {
+	repositories {
+		//修改项目根目录下的build.gradle，将jcenter()或者mavenCentral()替换掉即可，这样国内镜像就很快下载了
+//        jcenter()
+//        mavenCentral()
+		maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+		jcenter()
+	}
+}
 ext {
 	moduleProjects  = subprojects.findAll {
 		!it.name.equals('spring-build-src') && !it.name.equals('spring-framework-bom')
